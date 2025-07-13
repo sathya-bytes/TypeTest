@@ -1,28 +1,44 @@
-const $ = id => document.getElementById(id);
-const texts = [
- "Bananas are called berries, but strawberries are not.",
-"A day on Venus is longer than one whole year there!",
-"Octopuses have three hearts, and two stop when they swim.",
-"Wombats poop in cubes so it won’ t roll away.",
-"Some jellyfish can live forever by starting life over.",
-"Rhubarb makes a funny sound when it grows in the dark!"
+let startTime;
+
+const sentences = [
+  "She sells seashells by the seashore, swiftly and silently.",
+  "Typing isn’t just speed; it’s precision, posture, and patience.",
+  "If you're reading this, you're already halfway through success.",
+  "A truly great developer is constantly learning and unlearning.",
+  "Success comes to those who dare, not just those who dream.",
+  "Beware of bugs in the above code; I’ve only proved it correct.",
+  "Pseudopseudohypoparathyroidism is a real medical condition.",
+  "Even the most obscure syntax becomes natural with repetition.",
+  "The lazy programmer jumped swiftly over the tangled logic.",
+  "A debugged program is one that was never truly tested."
 ];
-let start, current;
-function startTest() {
-  current = texts[Math.random() * texts.length | 0];
-  $("sentence").innerText = current;
-  $("input").value = "";
-  $("input").disabled = false;
-  $("input").focus();
-  $("result").innerText = "";
-  start = new Date();
-}
-function endTest() {
-  $("input").disabled = true;
-  const typed = $("input").value.trim().split(" "), orig = current.split(" ");
-  const time = (new Date() - start) / 1000, words = typed.filter(Boolean).length;
-  const speed = Math.round((words / time) * 60);
-  const correct = typed.filter((w, i) => w === orig[i]).length;
-  const acc = Math.round((correct / orig.length) * 100);
-  $("result").innerText = `Speed: ${speed} WPM\nAccuracy: ${acc}%`;
+
+const sentenceText = document.getElementById("sentence");
+const randomSentence = sentences[Math.floor(Math.random() * sentences.length)];
+sentenceText.innerText = randomSentence;
+
+const input = document.getElementById("input");
+
+input.addEventListener("focus", () => {
+  startTime = new Date().getTime();
+});
+
+function checkSpeed() {
+  const endTime = new Date().getTime();
+  const totalTime = (endTime - startTime) / 1000;
+
+  const userInput = input.value.trim();
+  const wordCount = userInput.split(/\s+/).length;
+  const wpm = Math.round((wordCount / totalTime) * 60);
+
+  document.getElementById("result").innerText =
+    `Typing Speed: ${wpm} WPM`;
+
+  if (userInput === randomSentence) {
+    document.getElementById("accuracy").innerText = "✅ Typed correctly!";
+    document.getElementById("accuracy").style.color = "lightgreen";
+  } else {
+    document.getElementById("accuracy").innerText = "❌ Incorrect typing.";
+    document.getElementById("accuracy").style.color = "tomato";
+  }
 }
