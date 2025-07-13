@@ -2,19 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Typing Speed Test</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="box">
+  <div class="glass-box">
     <h2>Typing Speed Test</h2>
-    <p id="sentence">Click Start to begin</p>
-    <textarea id="input" placeholder="Start typing..." disabled></textarea>
-    <div class="btns">
-      <button onclick="startTest()">Start</button>
-      <button onclick="endTest()">Done</button>
-    </div>
+    <p id="sentence"></p>
+    <textarea id="input" rows="4" placeholder="Start typing here..."></textarea>
+    <button onclick="checkSpeed()">Check Speed</button>
     <p id="result"></p>
+    <p id="accuracy"></p>
   </div>
   <script src="script.js"></script>
 </body>
